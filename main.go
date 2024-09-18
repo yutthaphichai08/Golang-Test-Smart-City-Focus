@@ -134,7 +134,7 @@ func findHighestPollutantByHour(readings []AirQualityReading) map[int]string {
 }
 
 func main() {
-	// Use the CSV file with sensor readings
+	// Use the CSV file with readings
 	csvFilename := "readings.csv"
 
 	// Parse the CSV data
