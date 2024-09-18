@@ -112,7 +112,7 @@ func findHighestPollutantByHour(readings []AirQualityReading) map[int]string {
 
 	// Calculate the highest average pollutant for each hour
 	for hour := 0; hour < 24; hour++ {
-		maxPollutant := ""
+		maxPollutant := "N/A" // Default value if no data is available
 		maxAvg := 0.0
 
 		// Calculate average for each pollutant if there are readings
