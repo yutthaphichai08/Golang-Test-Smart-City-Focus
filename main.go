@@ -16,7 +16,8 @@ type AirQualityReading struct {
 	CO2       float64   `json:"co2"`
 }
 
-func parseCSVReadings(filename string) ([]AirQualityReading, error) {
+// parseCSVReadings
+func parseReadings(filename string) ([]AirQualityReading, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, errors.New("error opening CSV file: " + err.Error())
@@ -137,7 +138,7 @@ func main() {
 	csvFilename := "readings.csv"
 
 	// Parse the CSV data
-	readings, err := parseCSVReadings(csvFilename)
+	readings, err := parseReadings(csvFilename)
 	if err != nil {
 		fmt.Println("Failed to parse readings:", err)
 		return
@@ -159,7 +160,12 @@ func main() {
 	// Find the highest average pollutant by hour
 	highestByHour := findHighestPollutantByHour(readings)
 	fmt.Println("\nHighest pollutant by hour:")
-	for hour, pollutant := range highestByHour {
-		fmt.Printf("Hour %d: %s\n", hour, pollutant)
+	for hour := 0; hour < 24; hour++ {
+		pollutant, exists := highestByHour[hour]
+		if exists {
+			fmt.Printf("Hour %d: %s\n", hour, pollutant)
+		} else {
+			fmt.Printf("Hour %d: N/A\n", hour)
+		}
 	}
 }
